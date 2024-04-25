@@ -130,7 +130,7 @@ class TicTacToe:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    player_symbol = "X"
-    ws_url = "ws://localhost:8000/ws/socket-server/"
+    player_symbol = "O"
+    ws_url = "ws://192.168.210.201:8000/ws/socket-server/"
     game = TicTacToe(root,ws_url,player_symbol)
     root.mainloop()
