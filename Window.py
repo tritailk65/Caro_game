@@ -4,8 +4,8 @@ from tkinter import messagebox
 from Threading_socket import Threading_socket
 
 # init
-Ox = 20
-Oy = 20
+Ox = 10
+Oy = 10
 
 class Window(tk.Tk):
     def __init__(self):
