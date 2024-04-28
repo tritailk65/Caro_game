@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Lobby</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+</head>
+<body>
+    <h1>Lets chat!</h1>
+
+    <form id="form">
+        <input type="text" name="message"/>
+    </form>
+    <button id="disconnect-button">Disconnect</button> <!-- Nút disconnect -->
+    <button id="game-data-button">Send game data</button> <!-- Nút disconnect -->
+    <div id="messages"></div>
+
+    <script type="text/javascript">
+        let url = `ws://${window.location.host}/ws/socket-server/`
+
+        const chatSocket = new WebSocket(url)
+
+        chatSocket.onmessage = function(e){
+            let data = JSON.parse(e.data)
+            console.log('Data:', data)
+
+            if(data.type === 'chat'){
+                let messages = document.getElementById('messages')
+
+                messages.insertAdjacentHTML('beforeend', `<div>
+                                        <p>${data.message}</p>
+                                    </div>`)
+            }
+        }
+
+        chatSocket.onclose = function() {
+            alert("WebSocket is closed now.");
+        };
+
+        let form = document.getElementById('form')
+        form.addEventListener('submit', (e)=> {
+            e.preventDefault()
+            let message = e.target.message.value 
+            chatSocket.send(JSON.stringify({
+                'type': 'chat',
+                'message': message
+            }))
+            form.reset()
+        })
+
+        // Sự kiện đánh cờ
+        let gamedatabtn = document.getElementById('game-data-button');
+        gamedatabtn.addEventListener('click', () => {
+            chatSocket.send(JSON.stringify({
+                'type': 'move',
+                'player': 'X',
+                'position':{
+                    "row": 1,
+                    "col": 2
+                }
+            }))
+        });
+
+
+        // Sự kiện ngắt kết nối
+        let disconnectButton = document.getElementById('disconnect-button');
+        disconnectButton.addEventListener('click', () => {
+            chatSocket.close(); // Ngắt kết nối WebSocket
+            console.log("Disconnected from WebSocket.");
+        });
+
+    </script>
+</body>
+</html>

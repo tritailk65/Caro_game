@@ -1,0 +1,19 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Gomoku online - List of all user
+{% endblock %}
+
+
+{% block content %}
+
+    <p><a href="/">HOME</a></p>
+
+  <h1>Users</h1>
+  
+  <ul>
+    {% for x in users %}
+      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
