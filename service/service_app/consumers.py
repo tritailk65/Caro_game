@@ -29,7 +29,7 @@ class GameConsumer(WebsocketConsumer):
                 "type": "Matching",
                 "symbol": "O",
                 "room": self.room_group_name,
-                "message": "Matching success !"
+                "message": "Success"
             }))              
 
             # Gửi thông tin về phòng tới cả hai người
@@ -51,7 +51,7 @@ class GameConsumer(WebsocketConsumer):
                 "type": "Matching",
                 "symbol": "X",
                 "room": self.room_group_name,
-                "message": "Waiting for another player..."
+                "message": "Waiting"
             }))
 
     def receive(self, text_data):

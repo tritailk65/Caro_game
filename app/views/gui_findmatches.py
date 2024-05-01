@@ -10,7 +10,6 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame
 from PIL import ImageTk
 from PIL import Image
-import views.gui_gamemode
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"..\assets")
@@ -19,21 +18,18 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"..\assets")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-class FindMatches(Frame):
-    def __init__(self,parent,controller):
-        Frame.__init__(self, parent)
+class FindMatches:
+    def __init__(self,root):
+        self.root = root
 
-        self.canvas = Canvas(
-            self,
-            bg = "#1B2837",
-            height = 700,
-            width = 1300,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
-        )
+        self.frame = Frame(self.root, bg="#1B2837", width=1300, height=700, 
+                           bd=0, relief='ridge', highlightthickness=0)
+        self.frame.place(x=0, y=0)
 
-        self.canvas.place(x = 0, y = 0)
+        self.canvas = Canvas(self.frame, bg="#1B2837", width=1300, height=700, 
+                             bd=0, relief='ridge', highlightthickness=0)
+        self.canvas.place(x=0, y=0)
+
         self.canvas.create_text(
             508.0,
             124.0,
@@ -58,11 +54,11 @@ class FindMatches(Frame):
         self.button_image_1 = PhotoImage(
             file=relative_to_assets("cancle_findmatches.png"))
         button_1 = Button(
-            self,
+            self.frame,
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: controller.show_frame(views.gui_gamemode.GameMode),
+            command=lambda:None,
             relief="flat"
         )
         button_1.place(
@@ -71,6 +67,9 @@ class FindMatches(Frame):
             width=200.375,
             height=58.0
         )
+
+    def destroy(self):
+        self.frame.destroy()
     
     def update_image(self):
         self.angle -= 4  # Cập nhật góc xoay
@@ -79,4 +78,4 @@ class FindMatches(Frame):
         self.tkimage = ImageTk.PhotoImage(self.image.rotate(self.angle))
         self.canvas.itemconfig(self.canvas_obj, image=self.tkimage)
 
-        self.after(2, self.update_image)
+        self.frame.after(2, self.update_image)

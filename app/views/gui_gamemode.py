@@ -9,8 +9,7 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, messagebox
 import views.gui_ranking
-import views.gui_findmatches
-import views.gui_gameplay
+import views.gui_gameplay_online, views.gui_gameplay_friend
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"..\assets")
@@ -22,6 +21,7 @@ class GameMode(Frame):
     def __init__(self,parent,controller):
         Frame.__init__(self, parent)
 
+        #region GUI
         canvas = Canvas(
             self,
             bg = "#1B2837",
@@ -99,6 +99,7 @@ class GameMode(Frame):
             fill="#FFFFFF",
             font=("Inter Bold", 20 * -1)
         )
+        #endregion
 
         # Play online btn
         self.button_image_1 = PhotoImage(
@@ -108,7 +109,7 @@ class GameMode(Frame):
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: controller.show_frame(views.gui_findmatches.FindMatches),
+            command=lambda: controller.show_frame(views.gui_gameplay_online.GamePlayOnline),
             relief="flat"
         )
         button_1.place(
@@ -126,7 +127,7 @@ class GameMode(Frame):
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: controller.show_frame(views.gui_gameplay.GamePlay),
+            command=lambda: controller.show_frame(views.gui_gameplay_friend.GamePlayWithFriend),
             relief="flat"
         )
 
