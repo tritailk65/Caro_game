@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, messagebox, END
 import views.gui_gamemode
+import time
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"..\assets")
@@ -16,7 +17,7 @@ class GamePlayWithFriend(Frame):
         Frame.__init__(self, parent)
 
         #region GUI Gameplay
-        canvas = Canvas(
+        self.canvas = Canvas(
             self,
             bg = "#FFFFFF",
             height = 700,
@@ -26,8 +27,8 @@ class GamePlayWithFriend(Frame):
             relief = "ridge"
         )
 
-        canvas.place(x = 0, y = 0)
-        canvas.create_rectangle(
+        self.canvas.place(x = 0, y = 0)
+        self.canvas.create_rectangle(
             0.0,
             114.0,
             1300.0,
@@ -35,7 +36,7 @@ class GamePlayWithFriend(Frame):
             fill="#101B27",
             outline="")
 
-        canvas.create_rectangle(
+        self.canvas.create_rectangle(
             0.0,
             596.0,
             1300.0,
@@ -43,7 +44,7 @@ class GamePlayWithFriend(Frame):
             fill="#1B2837",
             outline="")
 
-        canvas.create_rectangle(
+        self.canvas.create_rectangle(
             0.0,
             0.0,
             1300.0,
@@ -51,67 +52,72 @@ class GamePlayWithFriend(Frame):
             fill="#1B2837",
             outline="")
 
-        canvas.create_rectangle(
-            179.0,
-            54.0,
-            194.0,
-            69.0,
-            fill="#FF0000",
-            outline="")
+        # canvas.create_rectangle(
+        #     179.0,
+        #     54.0,
+        #     194.0,
+        #     69.0,
+        #     fill="#FF0000",
+        #     outline="")
 
         self.image_image_1 = PhotoImage(
-            file=relative_to_assets("avatar_player1.png"))
-        canvas.create_image(
+            file=relative_to_assets("oggy.png"))
+        self.canvas.create_image(
             571.0,
             59.0,
             image=self.image_image_1
         )
 
         self.image_image_2 = PhotoImage(
-            file=relative_to_assets("avatar_player2.png"))
-        canvas.create_image(
+            file=relative_to_assets("jack.png"))
+        self.canvas.create_image(
             727.0,
             59.0,
             image=self.image_image_2
         )
 
-        canvas.create_text(
+        self.SCORE_X = 0
+        self.SCORE_O = 0
+
+        # Score player 1
+        self.score_player1 = self.canvas.create_text(
             625.0,
             51.0,
             anchor="nw",
-            text="0",
+            text=self.SCORE_X,
             fill="#FFFFFF",
             font=("Inter SemiBold", 20 * -1)
         )
 
-        canvas.create_text(
+        # Score player 2
+        self.score_player2 = self.canvas.create_text(
             661.0,
             51.0,
             anchor="nw",
-            text="0",
+            text=self.SCORE_O,
             fill="#FFFFFF",
             font=("Inter SemiBold", 20 * -1)
         )
 
-        canvas.create_text(
-            477.0,
-            70.0,
-            anchor="nw",
-            text="5:00",
-            fill="#FF00D6",
-            font=("Inter SemiBold", 16 * -1)
-        )
+        # canvas.create_text(
+        #     477.0,
+        #     70.0,
+        #     anchor="nw",
+        #     text="5:00",
+        #     fill="#FF00D6",
+        #     font=("Inter SemiBold", 16 * -1)
+        # )
 
-        canvas.create_text(
-            778.0,
-            70.0,
-            anchor="nw",
-            text="5:00",
-            fill="#FFE500",
-            font=("Inter SemiBold", 16 * -1)
-        )
+        # canvas.create_text(
+        #     778.0,
+        #     70.0,
+        #     anchor="nw",
+        #     text="5:00",
+        #     fill="#FFE500",
+        #     font=("Inter SemiBold", 16 * -1)
+        # )
 
-        canvas.create_text(
+        self.canvas.create_text(
             440.0,
             42.0,
             anchor="nw",
@@ -120,7 +126,7 @@ class GamePlayWithFriend(Frame):
             font=("Inter Bold", 20 * -1)
         )
 
-        canvas.create_text(
+        self.canvas.create_text(
             777.0,
             42.0,
             anchor="nw",
@@ -129,50 +135,50 @@ class GamePlayWithFriend(Frame):
             font=("Inter Bold", 20 * -1)
         )
 
-        canvas.create_rectangle(
-            1104.0,
-            53.0,
-            1119.0,
-            68.0,
-            fill="#00FF00",
-            outline="")
+        # canvas.create_rectangle(
+        #     1104.0,
+        #     53.0,
+        #     1119.0,
+        #     68.0,
+        #     fill="#00FF00",
+        #     outline="")
 
-        canvas.create_rectangle(
-            1154.0,
-            37.0,
-            1183.0,
-            85.0,
-            fill="#FF0000",
-            outline="")
+        # canvas.create_rectangle(
+        #     1154.0,
+        #     37.0,
+        #     1183.0,
+        #     85.0,
+        #     fill="#FF0000",
+        #     outline="")
 
-        canvas.create_text(
-            1161.0,
-            47.0,
-            anchor="nw",
-            text="7",
-            fill="#FFFFFF",
-            font=("Inter Bold", 24 * -1)
-        )
+        # canvas.create_text(
+        #     1161.0,
+        #     47.0,
+        #     anchor="nw",
+        #     text="7",
+        #     fill="#FFFFFF",
+        #     font=("Inter Bold", 24 * -1)
+        # )
 
-        canvas.create_rectangle(
-            118.0,
-            34.0,
-            147.0,
-            82.0,
-            fill="#FF0000",
-            outline="")
+        # canvas.create_rectangle(
+        #     118.0,
+        #     34.0,
+        #     147.0,
+        #     82.0,
+        #     fill="#FF0000",
+        #     outline="")
 
-        canvas.create_text(
-            125.0,
-            44.0,
-            anchor="nw",
-            text="7",
-            fill="#FFFFFF",
-            font=("Inter Bold", 24 * -1)
-        )
+        # canvas.create_text(
+        #     125.0,
+        #     44.0,
+        #     anchor="nw",
+        #     text="7",
+        #     fill="#FFFFFF",
+        #     font=("Inter Bold", 24 * -1)
+        # )
         #endregion
 
-        GameBoard(self)
+        self.game = GameBoard(self)
 
         # Cancle match btn
         self.button_image_1 = PhotoImage(
@@ -250,24 +256,48 @@ class GameBoard:
         for row in range(ROW):
             for col in range(COL - winning_count + 1):
                 if all(self.board[row][c] == player for c in range(col, col + winning_count)):
+                    if self.current_player == "X":
+                        self.root.SCORE_X += 1
+                        self.root.canvas.itemconfig(self.root.score_player1,text=self.root.SCORE_X)
+                    if self.current_player == "O":
+                        self.root.SCORE_O += 1
+                        self.root.canvas.itemconfig(self.root.score_player2,text=self.root.SCORE_O)
                     return True
         
         # Kiểm tra các cột
         for col in range(COL):
             for row in range(ROW - winning_count + 1):
                 if all(self.board[r][col] == player for r in range(row, row + winning_count)):
+                    if self.current_player == "X":
+                        self.root.SCORE_X += 1
+                        self.root.canvas.itemconfig(self.root.score_player1,text=self.root.SCORE_X)
+                    if self.current_player == "O":
+                        self.root.SCORE_O += 1
+                        self.root.canvas.itemconfig(self.root.score_player2,text=self.root.SCORE_O)
                     return True
         
         # Kiểm tra các đường chéo chính (từ trên trái đến dưới phải)
         for row in range(ROW - winning_count + 1):
             for col in range(COL - winning_count + 1):
                 if all(self.board[row + i][col + i] == player for i in range(winning_count)):
+                    if self.current_player == "X":
+                        self.root.SCORE_X += 1
+                        self.root.canvas.itemconfig(self.root.score_player1,text=self.root.SCORE_X)
+                    if self.current_player == "O":
+                        self.root.SCORE_O += 1
+                        self.root.canvas.itemconfig(self.root.score_player2,text=self.root.SCORE_O)
                     return True
         
         # Kiểm tra các đường chéo phụ (từ trên phải đến dưới trái)
         for row in range(ROW - winning_count + 1):
             for col in range(winning_count - 1, COL):
                 if all(self.board[row + i][col - i] == player for i in range(winning_count)):
+                    if self.current_player == "X":
+                        self.root.SCORE_X += 1
+                        self.root.canvas.itemconfig(self.root.score_player1,text=self.root.SCORE_X)
+                    if self.current_player == "O":
+                        self.root.SCORE_O += 1
+                        self.root.canvas.itemconfig(self.root.score_player2,text=self.root.SCORE_O)
                     return True
 
         return False

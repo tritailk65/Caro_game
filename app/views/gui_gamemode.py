@@ -41,30 +41,30 @@ class GameMode(Frame):
             fill="#101B27",
             outline="")
 
-        canvas.create_rectangle(
-            610.0,
-            153.0,
-            1103.0,
-            174.0,
-            fill="#D9D9D9",
-            outline="")
+        # canvas.create_rectangle(
+        #     610.0,
+        #     153.0,
+        #     1103.0,
+        #     174.0,
+        #     fill="#D9D9D9",
+        #     outline="")
 
-        canvas.create_rectangle(
-            1085.7713623046875,
-            140.865234375,
-            1119.9999961853027,
-            184.00011825561523,
-            fill="#FF0000",
-            outline="")
+        # canvas.create_rectangle(
+        #     1085.7713623046875,
+        #     140.865234375,
+        #     1119.9999961853027,
+        #     184.00011825561523,
+        #     fill="#FF0000",
+        #     outline="")
 
-        canvas.create_text(
-            1096.5804443359375,
-            149.3232421875,
-            anchor="nw",
-            text="7",
-            fill="#FFFFFF",
-            font=("Inter Bold", 24 * -1)
-        )
+        # canvas.create_text(
+        #     1096.5804443359375,
+        #     149.3232421875,
+        #     anchor="nw",
+        #     text="7",
+        #     fill="#FFFFFF",
+        #     font=("Inter Bold", 24 * -1)
+        # )
 
         self.image_image_1 = PhotoImage(
             file=relative_to_assets("logo.png"))
@@ -83,22 +83,22 @@ class GameMode(Frame):
             font=("DMSans BoldItalic", 50 * -1)
         )
 
-        canvas.create_rectangle(
-            610.0,
-            153.0,
-            972.0,
-            174.0,
-            fill="#FF00B7",
-            outline="")
+        # canvas.create_rectangle(
+        #     610.0,
+        #     153.0,
+        #     972.0,
+        #     174.0,
+        #     fill="#FF00B7",
+        #     outline="")
 
-        canvas.create_text(
-            610.0,
-            122.0,
-            anchor="nw",
-            text="Hieudeeptry",
-            fill="#FFFFFF",
-            font=("Inter Bold", 20 * -1)
-        )
+        # canvas.create_text(
+        #     610.0,
+        #     122.0,
+        #     anchor="nw",
+        #     text="Hieudeeptry",
+        #     fill="#FFFFFF",
+        #     font=("Inter Bold", 20 * -1)
+        # )
         #endregion
 
         # Play online btn
@@ -111,7 +111,7 @@ class GameMode(Frame):
             highlightthickness=0,
             command=lambda: controller.show_frame(views.gui_gameplay_online.GamePlayOnline),
             relief="flat"
-        )
+        ) 
         button_1.place(
             x=650.0,
             y=237.0,
@@ -174,4 +174,5 @@ class GameMode(Frame):
             width=352.0,
             height=54.73684310913086
         )
+
 

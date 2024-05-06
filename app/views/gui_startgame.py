@@ -59,7 +59,7 @@ class StartGame(Frame):
             max_steps = 100
 
             for i in range(1, max_steps + 1):
-                time.sleep(0.05) # mô phỏng
+                time.sleep(0.02) # mô phỏng
                 progress_bar['value'] = i  
                 # Tính phần trăm hoàn thành
                 percentage = int((i / max_steps) * 100)

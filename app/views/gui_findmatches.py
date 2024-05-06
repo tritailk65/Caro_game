@@ -10,6 +10,7 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame
 from PIL import ImageTk
 from PIL import Image
+import views.gui_gamemode 
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"..\assets")
@@ -58,7 +59,7 @@ class FindMatches:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda:None,
+            command= lambda:self.root.controller.show_frame(views.gui_gamemode.GameMode) ,
             relief="flat"
         )
         button_1.place(
