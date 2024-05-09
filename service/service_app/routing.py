@@ -4,5 +4,5 @@ from . import service_consumer
 
 websocket_urlpatterns = [
     re_path(r'ws/game-socket/', game_consumer.GameConsumer.as_asgi()),
-    re_path(r'ws/service-socket', service_consumer.ServiceConsumer.as_asgi())
+    re_path(r'ws/service-socket/(?P<username>\w+)/', service_consumer.ServiceConsumer.as_asgi())
 ]

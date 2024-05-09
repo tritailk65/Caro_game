@@ -59,7 +59,7 @@ class FindMatches:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command= lambda:self.root.controller.show_frame(views.gui_gamemode.GameMode) ,
+            command= lambda: self.handle_cancle() ,
             relief="flat"
         )
         button_1.place(
@@ -71,6 +71,10 @@ class FindMatches:
 
     def destroy(self):
         self.frame.destroy()
+
+    def handle_cancle(self):
+        self.root.gameboard.ws.close()
+        self.root.controller.show_frame(views.gui_gamemode.GameMode)
     
     def update_image(self):
         self.angle -= 4  # Cập nhật góc xoay

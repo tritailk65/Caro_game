@@ -2,6 +2,8 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, messagebox, END
 import views.gui_gamemode
 import time
+from views.gui_loadingUI import Loading
+import threading
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"..\assets")
@@ -52,14 +54,6 @@ class GamePlayWithFriend(Frame):
             fill="#1B2837",
             outline="")
 
-        # canvas.create_rectangle(
-        #     179.0,
-        #     54.0,
-        #     194.0,
-        #     69.0,
-        #     fill="#FF0000",
-        #     outline="")
-
         self.image_image_1 = PhotoImage(
             file=relative_to_assets("oggy.png"))
         self.canvas.create_image(
@@ -99,29 +93,11 @@ class GamePlayWithFriend(Frame):
             font=("Inter SemiBold", 20 * -1)
         )
 
-        # canvas.create_text(
-        #     477.0,
-        #     70.0,
-        #     anchor="nw",
-        #     text="5:00",
-        #     fill="#FF00D6",
-        #     font=("Inter SemiBold", 16 * -1)
-        # )
-
-        # canvas.create_text(
-        #     778.0,
-        #     70.0,
-        #     anchor="nw",
-        #     text="5:00",
-        #     fill="#FFE500",
-        #     font=("Inter SemiBold", 16 * -1)
-        # )
-
         self.canvas.create_text(
             440.0,
             42.0,
             anchor="nw",
-            text="Player 1",
+            text="Oggy",
             fill="#FFFFFF",
             font=("Inter Bold", 20 * -1)
         )
@@ -130,55 +106,13 @@ class GamePlayWithFriend(Frame):
             777.0,
             42.0,
             anchor="nw",
-            text="Player 2",
+            text="Jack",
             fill="#FFFFFF",
             font=("Inter Bold", 20 * -1)
         )
 
-        # canvas.create_rectangle(
-        #     1104.0,
-        #     53.0,
-        #     1119.0,
-        #     68.0,
-        #     fill="#00FF00",
-        #     outline="")
-
-        # canvas.create_rectangle(
-        #     1154.0,
-        #     37.0,
-        #     1183.0,
-        #     85.0,
-        #     fill="#FF0000",
-        #     outline="")
-
-        # canvas.create_text(
-        #     1161.0,
-        #     47.0,
-        #     anchor="nw",
-        #     text="7",
-        #     fill="#FFFFFF",
-        #     font=("Inter Bold", 24 * -1)
-        # )
-
-        # canvas.create_rectangle(
-        #     118.0,
-        #     34.0,
-        #     147.0,
-        #     82.0,
-        #     fill="#FF0000",
-        #     outline="")
-
-        # canvas.create_text(
-        #     125.0,
-        #     44.0,
-        #     anchor="nw",
-        #     text="7",
-        #     fill="#FFFFFF",
-        #     font=("Inter Bold", 24 * -1)
-        # )
         #endregion
-
-        self.game = GameBoard(self)
+        self.controller = controller
 
         # Cancle match btn
         self.button_image_1 = PhotoImage(
@@ -197,12 +131,17 @@ class GamePlayWithFriend(Frame):
             width=200.375,
             height=58.0
         )
+        threading.Thread(target=self.loading_board).start()
 
         def handle_cancle_match():
             result = messagebox.askquestion("Hủy trận đấu","Bạn có chắc chắn muốn hủy trận đấu ?")
 
             if result == 'yes':
                 controller.show_frame(views.gui_gamemode.GameMode)
+
+    def loading_board(self):
+        self.game = GameBoard(self)
+        
 
 class GameBoard:
     def __init__(self,root):

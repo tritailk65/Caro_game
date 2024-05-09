@@ -77,14 +77,6 @@ class GamePlayOnline(Frame):
             fill="#1B2837",
             outline="")
 
-        # canvas.create_rectangle(
-        #     179.0,
-        #     54.0,
-        #     194.0,
-        #     69.0,
-        #     fill="#FF0000",
-        #     outline="")
-
         self.image_image_1 = PhotoImage(
             file=relative_to_assets("oggy.png"))
         self.canvas.create_image(
@@ -99,6 +91,24 @@ class GamePlayOnline(Frame):
             727.0,
             59.0,
             image=self.image_image_2
+        )
+
+        self.canvas.create_text(
+            440.0,
+            42.0,
+            anchor="nw",
+            text="Player 1",
+            fill="#FFFFFF",
+            font=("Inter Bold", 20 * -1)
+        )
+
+        self.canvas.create_text(
+            777.0,
+            42.0,
+            anchor="nw",
+            text="Player 2",
+            fill="#FFFFFF",
+            font=("Inter Bold", 20 * -1)
         )
 
         self.canvas.create_text(
@@ -118,24 +128,6 @@ class GamePlayOnline(Frame):
             fill="#FFFFFF",
             font=("Inter SemiBold", 20 * -1)
         )
-
-        # canvas.create_text(
-        #     477.0,
-        #     70.0,
-        #     anchor="nw",
-        #     text="5:00",
-        #     fill="#FF00D6",
-        #     font=("Inter SemiBold", 16 * -1)
-        # )
-
-        # canvas.create_text(
-        #     778.0,
-        #     70.0,
-        #     anchor="nw",
-        #     text="5:00",
-        #     fill="#FFE500",
-        #     font=("Inter SemiBold", 16 * -1)
-        # )
 
         self.SCORE_X = 0
         self.SCORE_O = 0
@@ -159,48 +151,6 @@ class GamePlayOnline(Frame):
             fill="#FFFFFF",
             font=("Inter SemiBold", 20 * -1)
         )
-
-        # canvas.create_rectangle(
-        #     1104.0,
-        #     53.0,
-        #     1119.0,
-        #     68.0,
-        #     fill="#00FF00",
-        #     outline="")
-
-        # canvas.create_rectangle(
-        #     1154.0,
-        #     37.0,
-        #     1183.0,
-        #     85.0,
-        #     fill="#FF0000",
-        #     outline="")
-
-        # canvas.create_text(
-        #     1161.0,
-        #     47.0,
-        #     anchor="nw",
-        #     text="7",
-        #     fill="#FFFFFF",
-        #     font=("Inter Bold", 24 * -1)
-        # )
-
-        # canvas.create_rectangle(
-        #     118.0,
-        #     34.0,
-        #     147.0,
-        #     82.0,
-        #     fill="#FF0000",
-        #     outline="")
-
-        # canvas.create_text(
-        #     125.0,
-        #     44.0,
-        #     anchor="nw",
-        #     text="7",
-        #     fill="#FFFFFF",
-        #     font=("Inter Bold", 24 * -1)
-        # )
         
         # Cancle match btn
         self.button_image_1 = PhotoImage(
@@ -220,7 +170,7 @@ class GamePlayOnline(Frame):
             height=58.0
         )
         #endregion
-
+        
         self.gameboard = GameBoard(self)
         self.findmatches = FindMatches(self)
 

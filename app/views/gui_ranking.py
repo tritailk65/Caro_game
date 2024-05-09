@@ -7,11 +7,32 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, messagebox, ttk
+import tkinter.font as tkFont 
 import views.gui_gamemode
+import socket
+import requests
+
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"..\assets")
+
+hostname = socket.gethostname()
+IPAddr = socket.gethostbyname(hostname)
+
+url = f'http://{IPAddr}:8000/api/players'
+
+def fetch_data():
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Kiểm tra lỗi HTTP
+
+        # Lấy dữ liệu JSON
+        data = response.json()
+        return data
+
+    except requests.RequestException as e:
+        messagebox.showerror("Lỗi", f"Không thể lấy dữ liệu: {e}")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -20,6 +41,7 @@ class Ranking(Frame):
     def __init__(self,parent,controller):
         Frame.__init__(self, parent)
 
+        # region GUI
         canvas = Canvas(
             self,
             bg = "#1B2837",
@@ -56,42 +78,6 @@ class Ranking(Frame):
             font=("DMSans Medium", 20 * -1)
         )
 
-        canvas.create_text(
-            58.0,
-            117.0,
-            anchor="nw",
-            text="Stt",
-            fill="#FFFFFF",
-            font=("DMSans Bold", 20 * -1)
-        )
-
-        canvas.create_text(
-            149.666015625,
-            117.17333984375,
-            anchor="nw",
-            text="Tên người chơi",
-            fill="#FFFFFF",
-            font=("DMSans Bold", 20 * -1)
-        )
-
-        canvas.create_text(
-            489.427734375,
-            117.17333984375,
-            anchor="nw",
-            text="Thắng/Thua/Hòa",
-            fill="#FFFFFF",
-            font=("DMSans Bold", 20 * -1)
-        )
-
-        canvas.create_text(
-            862.0703125,
-            117.17333984375,
-            anchor="nw",
-            text="Điểm",
-            fill="#FFFFFF",
-            font=("DMSans Bold", 20 * -1)
-        )
-
         # Back btn
         self.button_image_1 = PhotoImage(
             file=relative_to_assets("back_btn.png"))
@@ -110,118 +96,6 @@ class Ranking(Frame):
             height=42.0
         )
 
-        image_image_1 = PhotoImage(
-            file=relative_to_assets("info_player.png"))
-        image_1 = canvas.create_image(
-            1170.0,
-            132.0,
-            image=image_image_1
-        )
-
-        canvas.create_rectangle(
-            1055.0,
-            169.0,
-            1285.0,
-            243.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_rectangle(
-            1055.0,
-            242.0,
-            1285.0,
-            316.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_rectangle(
-            1055.0,
-            315.0,
-            1285.0,
-            389.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_rectangle(
-            1055.0,
-            388.0,
-            1285.0,
-            462.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_rectangle(
-            1055.0,
-            461.0,
-            1285.0,
-            535.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_rectangle(
-            1055.0,
-            534.0,
-            1285.0,
-            608.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_rectangle(
-            1055.0,
-            607.0,
-            1285.0,
-            681.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_rectangle(
-            58.0,
-            169.0,
-            981.63525390625,
-            240.98394012451172,
-            fill="#000000",
-            outline="")
-
-        canvas.create_rectangle(
-            58.0,
-            240.98388671875,
-            981.63525390625,
-            313.0,
-            fill="#000000",
-            outline="")
-
-        canvas.create_rectangle(
-            58.0,
-            312.9677734375,
-            981.63525390625,
-            385.0,
-            fill="#000000",
-            outline="")
-
-        canvas.create_rectangle(
-            58.0,
-            384.95166015625,
-            981.63525390625,
-            456.9356002807617,
-            fill="#000000",
-            outline="")
-
-        canvas.create_rectangle(
-            58.0,
-            456.935791015625,
-            981.63525390625,
-            528.9197311401367,
-            fill="#000000",
-            outline="")
-
-        canvas.create_rectangle(
-            58.0,
-            528.919677734375,
-            981.63525390625,
-            600.9036178588867,
-            fill="#000000",
-            outline="")
-
         canvas.create_rectangle(
             1123.0,
             27.0,
@@ -229,20 +103,36 @@ class Ranking(Frame):
             61.0,
             fill="#101B27",
             outline="")
+        # endregion
+        
+        data = fetch_data()
+        sorted_data = sorted(data, key=lambda x : x["score"], reverse=True)
+        top_10 = sorted_data[:10]
 
-        image_image_2 = PhotoImage(
-            file=relative_to_assets("status_online.png"))
-        image_2 = canvas.create_image(
-            1145.0,
-            44.0,
-            image=image_image_2
-        )
+        heading_font = tkFont.Font(family="Helvetica", size=14, weight="bold")
+        body_font = tkFont.Font(family="Helvetica", size=10)
 
-        canvas.create_text(
-            1170.0,
-            31.0,
-            anchor="nw",
-            text="1111",
-            fill="#FFFFFF",
-            font=("DMSans Medium", 20 * -1)
-        )
+        # Đặt kiểu chữ cho tiêu đề của Treeview thông qua ttk.Style
+        style = ttk.Style()
+        style.configure("Treeview.Heading", font=heading_font)
+        style.configure("Treeview", font = body_font,rowheight=50)
+
+        tree = ttk.Treeview(self,columns=("Rank", "Tên trong game", "Thắng/Thua/Hòa", "Điểm"))
+
+        tree.heading("#0", text="Rank")
+        tree.heading("#1", text="Tên trong game")
+        tree.heading("#2", text="Thắng/Thua/Hòa")
+        tree.heading("#3", text="Điểm")
+
+        tree.column("#0", width=100)
+        tree.column("#1", width=260)
+        tree.column("#2", width=260)
+        tree.column("#3", width=100)
+        
+        i = 0
+        for item in top_10:
+            tree.insert("", "end", text=str(i+1),
+                        values=(item['ingame_name'], str(item['game_win']) + "/" + str(item["game_lose"]) + "/" + str(item["game_draw"]), item['score']))
+            i+=1
+        tree.place(x=70,y=117)
+

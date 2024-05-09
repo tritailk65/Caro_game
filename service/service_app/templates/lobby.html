@@ -5,11 +5,14 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Lobby</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-
 </head>
 <body>
     <h1>Lets chat!</h1>
 
+    <form id = "form-join">
+        <input type="text" name="player_name">
+    </form>
+    <br>
     <form id="form">
         <input type="text" name="message"/>
     </form>
@@ -18,10 +21,12 @@
     <div id="messages"></div>
 
     <script type="text/javascript">
-        let url = `ws://${window.location.host}/ws/socket-server/`
+        let url_game_socket = `ws://${window.location.host}/ws/game-socket/`
+        const chatSocket = new WebSocket(url_game_socket)   
 
-        const chatSocket = new WebSocket(url)
-
+        let url_service_socket = `ws://${window.location.host}/ws/service-socket/jond_doe/`
+        const service_socket = new WebSocket(url_service_socket)
+        
         chatSocket.onmessage = function(e){
             let data = JSON.parse(e.data)
             console.log('Data:', data)
@@ -33,6 +38,11 @@
                                         <p>${data.message}</p>
                                     </div>`)
             }
+        }
+
+        service_socket.onmessage = function(e){
+            let data = JSON.parse(e.data)
+            console.log('Data:', data)
         }
 
         chatSocket.onclose = function() {
@@ -49,6 +59,14 @@
             }))
             form.reset()
         })
+
+        // let join_form = document.getElementById("form-join")
+        // join_form.addEventListener('submit', (e) => {
+        //     e.preventDefault()
+        //     let name = e.target.player_name.value
+        //     let s = new WebSocket(url_service_socket+name+"/")
+        //     join_form.reset()
+        // })
 
         // Sự kiện đánh cờ
         let gamedatabtn = document.getElementById('game-data-button');

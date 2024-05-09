@@ -1,5 +1,7 @@
-from tkinter import Tk,ttk,Frame
+from tkinter import Tk,Frame
 from views.gui_startgame import StartGame
+from views.gui_gamemode import GameMode
+from views.gui_ranking import Ranking
 
 class windows(Tk):
     def __init__(self, *args, **kwargs):
@@ -18,6 +20,13 @@ class windows(Tk):
         self.current_frame.pack(fill="both", expand=True)
 
 if __name__ == "__main__":
+    # join = JoinServer()
+    # if join.is_success == True:
+    #     app = windows()
+    #     app.geometry("1300x700")
+    #     app.mainloop()
+
     app = windows()
     app.geometry("1300x700")
+    app.resizable(False,False)
     app.mainloop()

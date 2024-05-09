@@ -25,10 +25,15 @@ SECRET_KEY = 'django-insecure-fp7_fewf*q%xjv8^6mw_u4985_dwvatvws9!9zd+j@i7gdj%20
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 ALLOWED_HOSTS = ['*']
 
-# Application definition
+# CSS admin file
+STATIC_ROOT = BASE_DIR / 'productionfiles'
 
+STATIC_URL = 'static/'
+
+# Application definition
 INSTALLED_APPS = [
     'channels',
     'rest_framework',
@@ -49,14 +54,6 @@ CHANNEL_LAYERS = {
     }
 }
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-      'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'service.urls'

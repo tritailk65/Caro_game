@@ -9,7 +9,7 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Frame, messagebox
 import views.gui_ranking
-import views.gui_gameplay_online, views.gui_gameplay_friend
+import views.gui_gameplay_online, views.gui_gameplay_friend, views.gui_gameplay_ai
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"..\assets")
@@ -41,30 +41,6 @@ class GameMode(Frame):
             fill="#101B27",
             outline="")
 
-        # canvas.create_rectangle(
-        #     610.0,
-        #     153.0,
-        #     1103.0,
-        #     174.0,
-        #     fill="#D9D9D9",
-        #     outline="")
-
-        # canvas.create_rectangle(
-        #     1085.7713623046875,
-        #     140.865234375,
-        #     1119.9999961853027,
-        #     184.00011825561523,
-        #     fill="#FF0000",
-        #     outline="")
-
-        # canvas.create_text(
-        #     1096.5804443359375,
-        #     149.3232421875,
-        #     anchor="nw",
-        #     text="7",
-        #     fill="#FFFFFF",
-        #     font=("Inter Bold", 24 * -1)
-        # )
 
         self.image_image_1 = PhotoImage(
             file=relative_to_assets("logo.png"))
@@ -82,23 +58,6 @@ class GameMode(Frame):
             fill="#FFFFFF",
             font=("DMSans BoldItalic", 50 * -1)
         )
-
-        # canvas.create_rectangle(
-        #     610.0,
-        #     153.0,
-        #     972.0,
-        #     174.0,
-        #     fill="#FF00B7",
-        #     outline="")
-
-        # canvas.create_text(
-        #     610.0,
-        #     122.0,
-        #     anchor="nw",
-        #     text="Hieudeeptry",
-        #     fill="#FFFFFF",
-        #     font=("Inter Bold", 20 * -1)
-        # )
         #endregion
 
         # Play online btn
@@ -146,7 +105,7 @@ class GameMode(Frame):
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: messagebox.showinfo("Play with AI", "Comming soon !"),
+            command=lambda: controller.show_frame(views.gui_gameplay_ai.GamePlayAI),
             relief="flat"
         )
         button_3.place(
