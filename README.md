@@ -18,7 +18,7 @@ The player with the black piece always plays first. They must place their first 
 ### Purpose
 The aim of the game is to be able to arrange five pieces of the same color in the three allowed directions
 
-### Lịch sử
+### History
 It seems that Gomoku are over 4000 years old and its rules were developed in China. There is evidence of similar playing rules in ancient Greece and pre-Columbian America. The game is also known as "Kakugo" (meaning more or less "five steps" in Japanese), described in a work from 100 AD. It seems that in the 18th century, every Japanese person knew the rules of the game of checkers. The first episode about this game is still called Kakugo and appeared in 1858. We hope you will be excited to learn about the history of this Gomoku game!
 
 <!-- GETTING STARTED -->
@@ -62,6 +62,7 @@ Choose game mode:
 * "Chơi trực tuyến": Find a player online and start competing
 * "Chơi với một người bạn": Play with your friend
 * "Chơi với AI": Play with computer
+  <br/>
   <div style="text-align:center">
     <img src="img/game_mode.png" alt="Game mode screen">
   </div>
