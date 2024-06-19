@@ -58,11 +58,15 @@ This is list things you need to use the software and how to install them.
 <!-- Game play -->
 ## Game Play
 
-Choose game mode:
+<ul> Choose game mode:
+  <li>"Chơi trực tuyến": Find a player online and start competing</li>
+  <li>"Chơi với một người bạn": Play with your friend</li>
+  <li>"Chơi với AI": Play with computer</li>
+</ul>
+<!-- Choose game mode:
 * "Chơi trực tuyến": Find a player online and start competing
 * "Chơi với một người bạn": Play with your friend
-* "Chơi với AI": Play with computer
-  <br/>
+* "Chơi với AI": Play with computer -->
   <div style="text-align:center">
     <img src="img/game_mode.png" alt="Game mode screen">
   </div>
